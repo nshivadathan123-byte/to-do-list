@@ -1,0 +1,854 @@
+@charset "utf-8";
+
+/* =====================================================================
+   LCARS TASK MANAGER — STYLESHEET
+   LCARS Classic Theme Adaptation
+   ===================================================================== */
+
+@font-face {
+  font-family: 'Antonio';
+  font-weight: 400;
+  src: url('assets/Antonio-Regular.woff2') format('woff2'),
+    url('assets/Antonio-Regular.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Antonio';
+  font-weight: 700;
+  src: url('assets/Antonio-Bold.woff2') format('woff2'),
+    url('assets/Antonio-Bold.woff') format('woff');
+}
+
+/* ── Design Tokens ─────────────────────────────────────────────────── */
+:root {
+  /* LCARS Classic Palette */
+  --african-violet: #cc99ff;
+  --almond: #ffaa90;
+  --almond-creme: #ffbbaa;
+  --butterscotch: #ff9966;
+  --gold: #ffaa00;
+  --bluey: #8899ff;
+  --ice: #99ccff;
+  --mars: #ff2200;
+  --moonlit-violet: #9966ff;
+  --orange: #ff8800;
+  --peach: #ff8866;
+  --red: #d25252;
+  --space-white: #f5f6fa;
+  --tomato: #ff5555;
+  --sunflower: #ffcc99;
+
+  /* Semantic */
+  --bg: #000000;
+  --surface: #0b0c10;
+  --surface-2: #111218;
+  --font-primary: var(--african-violet);
+  --font-dark: #000000;
+  --border-black: .25rem solid #000;
+
+  /* LCARS frame geometry */
+  --radius-top: 0 0 0 160px;
+  --radius-bottom: 160px 0 0 0;
+  --lfw: 200px;
+}
+
+/* ── Reset ─────────────────────────────────────────────────────────── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font: inherit;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--bg);
+  font-family: 'Antonio', 'Arial Narrow', sans-serif;
+  font-weight: 400;
+  color: var(--font-primary);
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* ── HEADER — Two-bar LCARS (matches reference site) ──────────────── */
+
+.lcars-header {
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  gap: 8px;
+  /* standard LCARS black gap between header bars */
+}
+
+/* ════════════════════ TOP BAR ════════════════════ */
+.top-bar {
+  display: flex;
+  align-items: stretch;
+  height: 80px;
+  background-color: var(--bluey);
+  /* #8899ff — periwinkle */
+  border-radius: var(--radius-top);
+}
+
+/*
+  Left logo cap — identical to reference site:
+  same background as bar, large bottom-left border-radius,
+  right border separates it from the banner area.
+*/
+.top-bar-logo {
+  width: var(--lfw);
+  /* matches sidebar width */
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: center;
+  padding-right: 12px;
+  border-right: 8px solid #000;
+  /* The LCARS signature: large rounded bottom-left corner */
+  border-radius: var(--radius-top);
+  background-color: transparent;
+}
+
+.tbl-main {
+  font-size: 1.7rem;
+  font-weight: 700;
+  color: #000;
+  letter-spacing: .04em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.tbl-sub {
+  font-size: .75rem;
+  color: #000000;
+  letter-spacing: .08em;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+/* Centre banner = input field + ADD button */
+.top-bar-banner {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  padding: 0 12px;
+  gap: 0;
+}
+
+.top-bar-banner #task-input {
+  flex: 1;
+  height: 48px;
+  background-color: #0b0c10;
+  border: 2px solid rgba(255, 255, 255, .15);
+  border-radius: 4px 0 0 4px;
+  color: var(--african-violet);
+  font-family: 'Antonio', sans-serif;
+  font-size: 1.05rem;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  padding: 0 16px;
+  outline: none;
+  transition: border-color .2s, background-color .2s;
+}
+
+.top-bar-banner #task-input::placeholder {
+  color: rgba(204, 153, 255, .55);
+}
+
+.top-bar-banner #task-input:focus {
+  border-color: var(--african-violet);
+  background-color: #111218;
+}
+
+.top-bar-banner .add-btn {
+  height: 48px;
+  padding: 0 24px;
+  background-color: var(--gold);
+  border: none;
+  border-radius: 0 4px 4px 0;
+  font-family: 'Antonio', sans-serif;
+  font-weight: 700;
+  font-size: .95rem;
+  letter-spacing: .1em;
+  color: #000;
+  cursor: pointer;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: filter .15s;
+}
+
+.top-bar-banner .add-btn:hover {
+  filter: brightness(112%);
+}
+
+.top-bar-banner .add-btn:active {
+  filter: brightness(82%);
+}
+
+
+
+
+
+
+/* ════════════════════ STATUS BAR ════════════════════ */
+.status-bar {
+  display: flex;
+  align-items: stretch;
+  height: 60px;
+  background-color: var(--red);
+  /* #cc4444 — LCARS red */
+  border-radius: var(--radius-bottom);
+}
+
+/*  Left cap — mirrors top-bar-logo structure, acts as sidebar top cap */
+.status-bar-logo {
+  width: var(--lfw);
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: center;
+  padding-right: 12px;
+  border-right: 8px solid #000;
+  background-color: transparent;
+  /* Rounded top-left corner to act as top cap of sidebar */
+  border-radius: var(--radius-bottom);
+}
+
+.sbl-label {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #000;
+  letter-spacing: .06em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.sbl-value {
+  font-size: .6rem;
+  color: #000000;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+/* Status banner text & container */
+.status-bar-banner {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  font-size: .9rem;
+  font-weight: 700;
+  color: #000;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+}
+
+
+
+/* CSS variable for the elbow corner radius */
+:root {
+  --lcars-elbow-r: 40px;
+  /* tweak to taste */
+}
+
+.separator {
+  color: var(--orange);
+}
+
+/* ── MAIN LAYOUT ───────────────────────────────────────────────────── */
+.lcars-main {
+  display: flex;
+  flex: 1;
+  gap: 0;
+  padding: 0 16px 0 0;
+  /* Left sidebar sits flush with left screen edge */
+  margin-top: 8px;
+  height: calc(100vh - 156px);
+  min-height: 0;
+}
+
+/* ── LEFT SIDEBAR ──────────────────────────────────────────────────── */
+.left-sidebar {
+  width: var(--lfw);
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  /* Continuous, flush blocks */
+  height: 100%;
+}
+
+/* Base style for all sidebar blocks (buttons and stat displays) */
+.sidebar-block {
+  width: 100%;
+  flex: 1;
+  min-height: 0;
+  border: none;
+  background-color: var(--surface);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-end;
+  padding: 6px 16px;
+  border-bottom: 8px solid #000;
+  border-right: 8px solid #000;
+  text-decoration: none;
+  font-family: 'Antonio', sans-serif;
+  color: #000;
+  text-align: right;
+  transition: filter .15s, background-color .15s;
+}
+
+/* Label text (top right) */
+.sb-block-label {
+  font-size: .75rem;
+  font-weight: 700;
+  color: #000000;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  line-height: 1;
+  margin-bottom: 4px;
+}
+
+/* Value text (bottom right) */
+.sb-block-value {
+  font-size: 1.35rem;
+  font-weight: 700;
+  letter-spacing: .02em;
+  text-transform: uppercase;
+  line-height: 1.1;
+  color: #000;
+}
+
+/* Button hover state */
+button.sidebar-block:hover {
+  filter: brightness(115%);
+  cursor: pointer;
+}
+
+/* Button active push state */
+button.sidebar-block:active {
+  filter: brightness(85%);
+}
+
+/* Active filter state — turns white/cream */
+button.sidebar-block.filter-active-state {
+  background-color: var(--space-white) !important;
+  color: #000 !important;
+}
+
+button.sidebar-block.filter-active-state .sb-block-label {
+  color: rgba(0, 0, 0, 0.5) !important;
+}
+
+button.sidebar-block.filter-active-state .sb-block-value {
+  color: #000 !important;
+}
+
+/* Colors matching Netlify styles */
+.sb-bluey {
+  background-color: var(--bluey);
+}
+
+.sb-butterscotch {
+  background-color: var(--butterscotch);
+}
+
+.sb-violet {
+  background-color: var(--african-violet);
+}
+
+.sb-gold {
+  background-color: var(--gold);
+}
+
+.sb-peach {
+  background-color: var(--almond);
+}
+
+.sb-sunflower {
+  background-color: var(--sunflower);
+}
+
+.sb-red {
+  background-color: var(--red);
+}
+
+.sb-ice {
+  background-color: var(--ice);
+}
+
+/* Bottom-most block gets bottom-left rounded corner (acts as cap) */
+.sidebar-block.bottom-cap {
+  border-bottom: none;
+}
+
+#clear-completed-btn {
+}
+
+/* ── RIGHT CONTENT ─────────────────────────────────────────────────── */
+.right-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  padding-left: 10px;
+  /* Space between sidebar right border and main content */
+  min-width: 0;
+  height: 100%;
+}
+
+/* Task Section */
+.task-section {
+  flex: 1;
+  padding-top: 10px;
+  overflow-y: auto;
+  padding-right: 4px;
+  height: 100%;
+}
+
+/* ── TASK ITEM ─────────────────────────────────────────────────────── */
+.task-item {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  margin-bottom: 10px;
+  background-color: var(--surface);
+  border-left: 5px solid var(--bluey);
+  border-radius: 3px;
+  overflow: hidden;
+  animation: slideIn .25s ease forwards;
+  position: relative;
+  transition: opacity .3s;
+}
+
+.task-item.completed {
+  border-left-color: var(--moonlit-violet);
+  opacity: .82;
+}
+
+.task-item.removing {
+  animation: slideOut .25s ease forwards;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-16px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideOut {
+  from {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  to {
+    opacity: 0;
+    transform: translateX(-16px);
+  }
+}
+
+/* Checkbox / complete toggle */
+.task-check {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+  background: none;
+  border: none;
+  transition: filter .15s;
+}
+
+.task-check:hover {
+  filter: brightness(125%);
+}
+
+.check-ring {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 2.5px solid var(--bluey);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color .2s, border-color .2s;
+}
+
+.task-item.completed .check-ring {
+  background-color: var(--moonlit-violet);
+  border-color: var(--moonlit-violet);
+}
+
+.check-icon {
+  width: 10px;
+  height: 7px;
+  border-left: 2px solid #000;
+  border-bottom: 2px solid #000;
+  transform: rotate(-45deg) translateY(-1px);
+  display: none;
+}
+
+.task-item.completed .check-icon {
+  display: block;
+}
+
+/* Task text */
+.task-text {
+  flex: 1;
+  padding: 0 12px;
+  font-size: .95rem;
+  letter-spacing: .04em;
+  color: var(--african-violet);
+  word-break: break-word;
+  line-height: 1.3;
+  min-width: 0;
+  text-transform: uppercase;
+}
+
+.task-item.completed .task-text {
+  text-decoration: line-through;
+  text-decoration-color: var(--moonlit-violet);
+  color: #bfa3ff;
+}
+
+/* Task timestamp */
+.task-timestamp {
+  font-size: .85rem;
+  font-weight: 700;
+  color: var(--orange);
+  opacity: 1;
+  padding: 0 12px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+/* Delete button */
+.task-delete {
+  width: 44px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  background-color: var(--red);
+  border: none;
+  color: #000;
+  font-size: .8rem;
+  font-family: 'Antonio', sans-serif;
+  font-weight: 700;
+  letter-spacing: .05em;
+  flex-shrink: 0;
+  transition: filter .15s, transform .1s;
+  clip-path: polygon(12px 0, 100% 0, 100% 100%, 12px 100%, 0 50%);
+}
+
+.task-delete:hover {
+  filter: brightness(120%);
+}
+
+.task-delete:active {
+  filter: brightness(80%);
+  transform: scale(.96);
+}
+
+/* Delete icon (X) */
+.delete-x {
+  font-size: 1rem;
+  line-height: 1;
+}
+
+/* ── EMPTY STATE ───────────────────────────────────────────────────── */
+.empty-state {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 48px 0;
+  gap: 8px;
+}
+
+.empty-state.visible {
+  display: flex;
+}
+
+.empty-icon {
+  font-size: 3rem;
+  color: var(--moonlit-violet);
+  opacity: .4;
+  animation: emptyPulse 2.8s ease-in-out infinite;
+}
+
+@keyframes emptyPulse {
+
+  0%,
+  100% {
+    opacity: .25;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: .55;
+    transform: scale(1.08);
+  }
+}
+
+.empty-text {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--african-violet);
+  letter-spacing: .14em;
+  opacity: .85;
+}
+
+.empty-sub {
+  font-size: .7rem;
+  color: var(--orange);
+  letter-spacing: .1em;
+  opacity: .85;
+}
+
+
+
+
+
+/* ── SCROLLBAR ─────────────────────────────────────────────────────── */
+.task-section::-webkit-scrollbar {
+  width: 6px;
+}
+
+.task-section::-webkit-scrollbar-track {
+  background: var(--surface);
+}
+
+.task-section::-webkit-scrollbar-thumb {
+  background: var(--moonlit-violet);
+  border-radius: 3px;
+}
+
+
+
+@media (max-width: 480px) {
+  :root {
+    --lfw: 80px;
+    --radius-top: 0 0 0 32px;
+    --radius-bottom: 32px 0 0 0;
+  }
+
+  .add-btn-text-extra,
+  .status-extra-text {
+    display: none;
+  }
+
+  .top-bar {
+    position: relative;
+    overflow: hidden;
+    border-radius: 0;
+    transition: border-radius 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  body.sidebar-open .top-bar {
+    border-radius: var(--radius-top);
+  }
+
+  .top-bar-logo {
+    position: relative;
+    width: var(--lfw);
+    flex-shrink: 0;
+    background-color: var(--bluey);
+    margin-left: calc(-1 * var(--lfw));
+    border-radius: 0;
+    transition: margin-left 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-radius 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    border-right: 4px solid #000;
+    padding-right: 6px;
+  }
+
+  body.sidebar-open .top-bar-logo {
+    border-radius: var(--radius-top);
+  }
+
+  .top-bar-logo.open {
+    margin-left: 0;
+  }
+
+  .tbl-main {
+    font-size: 1.1rem;
+  }
+
+  .tbl-sub {
+    font-size: 0.5rem;
+  }
+
+  .top-bar-banner {
+    padding: 0 8px;
+  }
+
+  .top-bar-banner #task-input {
+    font-size: .88rem;
+    padding: 0 10px;
+  }
+
+  .top-bar-banner .add-btn {
+    padding: 0 12px;
+    font-size: .85rem;
+  }
+
+  .status-bar {
+    position: relative;
+    overflow: hidden;
+    border-radius: 0;
+    transition: border-radius 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  body.sidebar-open .status-bar {
+    border-radius: var(--radius-bottom);
+  }
+
+  .status-bar-logo {
+    position: relative;
+    width: var(--lfw);
+    flex-shrink: 0;
+    background-color: var(--red);
+    margin-left: calc(-1 * var(--lfw));
+    border-radius: 0;
+    transition: margin-left 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-radius 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    border-right: 4px solid #000;
+    padding-right: 6px;
+  }
+
+  body.sidebar-open .status-bar-logo {
+    border-radius: var(--radius-bottom);
+  }
+
+  .status-bar-logo.open {
+    margin-left: 0;
+  }
+
+  .sbl-label {
+    font-size: 1.05rem;
+  }
+
+  .sbl-value {
+    font-size: .45rem;
+  }
+
+  .status-bar-banner {
+    padding: 0 8px;
+    font-size: .72rem;
+  }
+
+
+
+  .lcars-header {
+    gap: 4px;
+  }
+
+  .lcars-main {
+    margin-top: 4px;
+    height: calc(100vh - 148px);
+    padding-right: 8px;
+    position: relative;
+  }
+
+  .left-sidebar {
+    position: relative;
+    width: var(--lfw);
+    flex-shrink: 0;
+    height: 100%;
+    z-index: 1000;
+    margin-left: calc(-1 * var(--lfw));
+    transition: margin-left 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    background-color: var(--bg);
+    border-right: none;
+    box-shadow: 5px 0 15px rgba(0, 0, 0, 0.8);
+  }
+
+  .left-sidebar.open {
+    margin-left: 0;
+  }
+
+  .sidebar-block {
+    padding: 4px 6px;
+    border-bottom: 4px solid #000;
+    border-right: 4px solid #000;
+  }
+
+  .sb-block-label {
+    font-size: .52rem;
+    margin-bottom: 2px;
+  }
+
+  .sb-block-value {
+    font-size: .88rem;
+  }
+
+  .right-content {
+    padding-left: 6px;
+  }
+
+  .task-section {
+    padding-top: 6px;
+  }
+
+  .task-item {
+    margin-bottom: 8px;
+  }
+
+  .task-text {
+    font-size: .8rem;
+    padding: 0 8px;
+  }
+
+  .task-timestamp {
+    font-size: .68rem;
+    padding: 0 4px;
+  }
+
+  .task-check {
+    width: 38px;
+    height: 38px;
+  }
+
+  .check-ring {
+    width: 18px;
+    height: 18px;
+    border-width: 2px;
+  }
+
+  .task-delete {
+    width: 36px;
+    height: 38px;
+    font-size: .75rem;
+  }
+
+  .empty-icon {
+    font-size: 2.2rem;
+  }
+
+  .empty-text {
+    font-size: .85rem;
+  }
+
+  .empty-sub {
+    font-size: .6rem;
+  }
+}

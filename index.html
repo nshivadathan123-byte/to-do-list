@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description"
+    content="LCARS Task Manager — A Star Trek inspired to-do list application. Add, complete, and delete tasks with a retro-futuristic interface.">
+  <title>LCARS Task Manager</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <!-- LCARS Header — Two-bar layout matching reference site -->
+  <header class="lcars-header" role="banner">
+
+    <!-- ── TOP BAR ── -->
+    <div class="top-bar">
+      <!-- Left logo/brand area (matches sidebar width) -->
+      <div class="top-bar-logo">
+        <span class="tbl-main">TASKS</span>
+      </div>
+      <!-- Centre banner = input row + add button -->
+      <div class="top-bar-banner">
+        <input type="text" id="task-input" placeholder="ENTER TASK DIRECTIVE..." maxlength="200" autocomplete="off"
+          aria-label="New task input">
+        <button class="add-btn" id="add-task-btn" onclick="addTask()" aria-label="Add task">
+          ADD<span class="add-btn-text-extra"> DIRECTIVE</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- ── STATUS BAR ── -->
+    <div class="status-bar">
+      <div class="status-bar-logo">
+        <span class="sbl-label">STATUS</span>
+        <span class="sbl-value" id="system-status">OPERATIONAL</span>
+      </div>
+      <div class="status-bar-banner">
+        <span><span id="section-label">ACTIVE DIRECTIVES</span><span class="status-extra-text"> &bull; LOCALSTORAGE ACTIVE</span></span>
+      </div>
+    </div>
+
+  </header>
+
+  <!-- Main Layout -->
+  <div class="lcars-main">
+
+    <!-- Left Sidebar — continuous block layout matching netlify site -->
+    <aside class="left-sidebar" id="left-sidebar">
+
+      <!-- Filter: All Tasks -->
+      <button class="sidebar-block filter-btn sb-gold" id="filter-all" onclick="setFilter('all')">
+        <span class="sb-block-label">FILTER</span>
+        <span class="sb-block-value">ALL TASKS</span>
+      </button>
+
+      <!-- Filter: Active -->
+      <button class="sidebar-block filter-btn sb-butterscotch" id="filter-active" onclick="setFilter('active')">
+        <span class="sb-block-label">FILTER</span>
+        <span class="sb-block-value">ACTIVE</span>
+      </button>
+
+      <!-- Filter: Completed -->
+      <button class="sidebar-block filter-btn sb-bluey" id="filter-done" onclick="setFilter('done')">
+        <span class="sb-block-label">FILTER</span>
+        <span class="sb-block-value">COMPLETED</span>
+      </button>
+
+      <!-- Stat: Pending -->
+      <div class="sidebar-block stat-block sb-violet">
+        <span class="sb-block-label">PENDING</span>
+        <span class="sb-block-value" id="stat-pending">0</span>
+      </div>
+
+      <!-- Stat: Resolved -->
+      <div class="sidebar-block stat-block sb-butterscotch">
+        <span class="sb-block-label">RESOLVED</span>
+        <span class="sb-block-value" id="stat-done">0</span>
+      </div>
+
+      <!-- Stat: Total -->
+      <div class="sidebar-block stat-block sb-bluey">
+        <span class="sb-block-label">TOTAL LOGGED</span>
+        <span class="sb-block-value" id="stat-total">0</span>
+      </div>
+
+      <!-- Action: Purge Done -->
+      <button class="sidebar-block action-btn sb-gold" id="clear-completed-btn" onclick="clearCompleted()">
+        <span class="sb-block-label">ACTION</span>
+        <span class="sb-block-value">PURGE DONE</span>
+      </button>
+
+      <!-- Action: Clear All (bottom cap with rounded bottom-left corner) -->
+      <button class="sidebar-block action-btn sb-red bottom-cap" id="clear-all-btn" onclick="clearAll()">
+        <span class="sb-block-label">SYSTEM</span>
+        <span class="sb-block-value">CLEAR ALL</span>
+      </button>
+
+    </aside>
+
+    <!-- Right Content Area -->
+    <main class="right-content">
+      <!-- Task List -->
+      <section class="task-section" aria-label="Task list">
+        <div id="task-list" role="list" aria-label="Task items">
+          <!-- Tasks rendered here -->
+        </div>
+
+        <div id="empty-state" class="empty-state" aria-live="polite">
+          <div class="empty-icon">&#9676;</div>
+          <div class="empty-text">NO TASKS ON RECORD</div>
+          <div class="empty-sub">ENTER A DIRECTIVE ABOVE TO BEGIN</div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+
+</html>
