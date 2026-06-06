@@ -393,9 +393,6 @@ button.sidebar-block.filter-active-state .sb-block-value {
   border-bottom: none;
 }
 
-#clear-completed-btn {
-}
-
 /* ── RIGHT CONTENT ─────────────────────────────────────────────────── */
 .right-content {
   flex: 1;
