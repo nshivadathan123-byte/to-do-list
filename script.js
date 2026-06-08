@@ -1,17 +1,10 @@
-/* =====================================================================
-   LCARS TASK MANAGER — script.js
-   Features: Add, Complete, Delete, Filter, localStorage persistence
-   ===================================================================== */
-
 (function () {
   'use strict';
 
-  /* ── State ─────────────────────────────────────────────────────── */
   const STORAGE_KEY = 'lcars_tasks_v1';
-  let tasks = [];   // { id, text, completed, createdAt }
-  let activeFilter = 'all'; // 'all' | 'active' | 'done'
+  let tasks = [];
+  let activeFilter = 'all';
 
-  /* ── DOM refs ──────────────────────────────────────────────────── */
   const taskInput = document.getElementById('task-input');
   const taskList = document.getElementById('task-list');
   const emptyState = document.getElementById('empty-state');
@@ -20,7 +13,6 @@
   const statTotal = document.getElementById('stat-total');
   const sectionLabel = document.getElementById('section-label');
 
-  /* ── Persistence ───────────────────────────────────────────────── */
   function loadTasks() {
     try {
       const stored = localStorage.getItem(STORAGE_KEY);
@@ -38,14 +30,12 @@
     }
   }
 
-  /* ── ID generator ──────────────────────────────────────────────── */
   function genId() {
     return Date.now().toString(36) + Math.random().toString(36).slice(2, 6);
   }
 
+  updateStats();
 
-
-  /* ── Stats ─────────────────────────────────────────────────────── */
   function updateStats() {
     const total = tasks.length;
     const done = tasks.filter(t => t.completed).length;
@@ -56,7 +46,6 @@
     statDone.textContent = done;
   }
 
-  /* ── Render ────────────────────────────────────────────────────── */
   function getFilteredTasks() {
     if (activeFilter === 'active') return tasks.filter(t => !t.completed);
     if (activeFilter === 'done') return tasks.filter(t => t.completed);
@@ -97,11 +86,9 @@
   function render() {
     const filtered = getFilteredTasks();
 
-    // Update section label
-    const labels = { all: 'ALL DIRECTIVES', active: 'ACTIVE DIRECTIVES', done: 'RESOLVED DIRECTIVES' };
+    const labels = { all: 'ALL TASKS', active: 'ACTIVE TASKS', done: 'COMPLETED TASKS' };
     sectionLabel.textContent = labels[activeFilter];
 
-    // Clear list
     taskList.innerHTML = '';
 
     if (filtered.length === 0) {
@@ -117,7 +104,6 @@
     highlightFilterBtn();
   }
 
-  /* ── Filter button highlight ───────────────────────────────────── */
   function highlightFilterBtn() {
     ['filter-all', 'filter-active', 'filter-done'].forEach(id => {
       document.getElementById(id).classList.remove('filter-active-state');
@@ -126,11 +112,10 @@
     document.getElementById(idMap[activeFilter]).classList.add('filter-active-state');
   }
 
-  /* ── Actions ───────────────────────────────────────────────────── */
   window.addTask = function () {
     const raw = taskInput.value.trim();
     if (!raw) {
-      showToast('DIRECTIVE CANNOT BE EMPTY', 'toast-warn');
+      showToast('TASK CANNOT BE EMPTY', 'toast-warn');
       taskInput.focus();
       return;
     }
@@ -147,7 +132,7 @@
     taskInput.value = '';
     taskInput.focus();
     render();
-    showToast('DIRECTIVE LOGGED', 'toast-success');
+    showToast('TASK ADDED', 'toast-success');
   };
 
   window.toggleTask = function (id) {
@@ -161,14 +146,13 @@
     if (el) {
       if (task.completed) {
         el.classList.add('completed');
-        showToast('DIRECTIVE RESOLVED', 'toast-success');
+        showToast('TASK COMPLETED', 'toast-success');
       } else {
         el.classList.remove('completed');
-        showToast('DIRECTIVE REACTIVATED', 'toast-success');
+        showToast('TASK REACTIVATED', 'toast-success');
       }
     }
 
-    // Re-render to reflect filter
     render();
   };
 
@@ -179,7 +163,7 @@
       tasks = tasks.filter(t => t.id !== id);
       saveTasks();
       render();
-      showToast('DIRECTIVE PURGED', 'toast-delete');
+      showToast('TASK DELETED', 'toast-delete');
     }
 
     if (el) {
@@ -199,13 +183,13 @@
   window.clearCompleted = function () {
     const count = tasks.filter(t => t.completed).length;
     if (count === 0) {
-      showToast('NO COMPLETED TASKS TO PURGE', 'toast-warn');
+      showToast('NO COMPLETED TASKS TO CLEAR', 'toast-warn');
       return;
     }
     tasks = tasks.filter(t => !t.completed);
     saveTasks();
     render();
-    showToast(`${count} DIRECTIVE${count !== 1 ? 'S' : ''} PURGED`, 'toast-delete');
+    showToast(`${count} TASK${count !== 1 ? 'S' : ''} DELETED`, 'toast-delete');
   };
 
   window.clearAll = function () {
@@ -217,15 +201,12 @@
     tasks = [];
     saveTasks();
     render();
-    showToast(`ALL ${count} DIRECTIVE${count !== 1 ? 'S' : ''} CLEARED`, 'toast-delete');
+    showToast(`ALL ${count} TASK${count !== 1 ? 'S' : ''} CLEARED`, 'toast-delete');
   };
 
-  /* ── Toast ─────────────────────────────────────────────────────── */
   function showToast(msg, type = 'toast-success') {
-    // No-op: Toast notifications disabled per user request
   }
 
-  /* ── Escape HTML ───────────────────────────────────────────────── */
   function escapeHtml(str) {
     return str
       .replace(/&/g, '&amp;')
@@ -235,12 +216,10 @@
       .replace(/'/g, '&#039;');
   }
 
-  /* ── Keyboard support ──────────────────────────────────────────── */
   taskInput.addEventListener('keydown', function (e) {
     if (e.key === 'Enter') window.addTask();
   });
 
-  /* ── Mobile Sidebar Touch / Swipe Gestures ────────────────────────── */
   (function initMobileSidebar() {
     const sidebar = document.getElementById('left-sidebar');
     const topLogo = document.querySelector('.top-bar-logo');
@@ -281,7 +260,6 @@
       sidebarOpen = false;
     }
 
-    // Close on sidebar button click on mobile
     sidebar.querySelectorAll('.sidebar-block').forEach(btn => {
       btn.addEventListener('click', function () {
         if (window.innerWidth <= 480) {
@@ -301,14 +279,12 @@
       currentX = startX;
 
       if (sidebarOpen) {
-        // If open, swipe close gesture can start anywhere, lock immediately
         isSwiping = true;
         isTracking = false;
         slideElements.forEach(el => {
           el.style.transition = 'none';
         });
       } else {
-        // If closed, start tracking anywhere on the screen
         isTracking = true;
         isSwiping = false;
       }
@@ -320,12 +296,10 @@
       const deltaX = currentX - startX;
       const deltaY = touch.clientY - startY;
 
-      // Determine swipe intent if tracking
       if (isTracking && !isSwiping) {
         const threshold = 10;
         if (Math.abs(deltaX) > threshold || Math.abs(deltaY) > threshold) {
           if (deltaX > threshold && Math.abs(deltaX) > Math.abs(deltaY)) {
-            // Left-to-right horizontal swipe confirmed: lock gesture
             isSwiping = true;
             isTracking = false;
             document.body.classList.add('sidebar-open');
@@ -333,7 +307,6 @@
               el.style.transition = 'none';
             });
           } else {
-            // Vertical scroll or left swipe: ignore and release tracking
             isTracking = false;
           }
         }
@@ -341,7 +314,6 @@
 
       if (!isSwiping) return;
 
-      // Prevent page vertical scrolling once swipe lock is established
       if (e.cancelable) e.preventDefault();
 
       if (!sidebarOpen) {
@@ -384,7 +356,6 @@
     }, { passive: true });
   })();
 
-  /* ── Init ──────────────────────────────────────────────────────── */
   loadTasks();
   render();
 

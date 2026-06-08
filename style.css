@@ -1,10 +1,5 @@
 @charset "utf-8";
 
-/* =====================================================================
-   LCARS TASK MANAGER — STYLESHEET
-   LCARS Classic Theme Adaptation
-   ===================================================================== */
-
 @font-face {
   font-family: 'Antonio';
   font-weight: 400;
@@ -19,9 +14,7 @@
     url('assets/Antonio-Bold.woff') format('woff');
 }
 
-/* ── Design Tokens ─────────────────────────────────────────────────── */
 :root {
-  /* LCARS Classic Palette */
   --african-violet: #cc99ff;
   --almond: #ffaa90;
   --almond-creme: #ffbbaa;
@@ -38,7 +31,6 @@
   --tomato: #ff5555;
   --sunflower: #ffcc99;
 
-  /* Semantic */
   --bg: #000000;
   --surface: #0b0c10;
   --surface-2: #111218;
@@ -46,13 +38,11 @@
   --font-dark: #000000;
   --border-black: .25rem solid #000;
 
-  /* LCARS frame geometry */
   --radius-top: 0 0 0 160px;
   --radius-bottom: 160px 0 0 0;
   --lfw: 200px;
 }
 
-/* ── Reset ─────────────────────────────────────────────────────────── */
 *,
 *::before,
 *::after {
@@ -77,34 +67,23 @@ body {
   overflow: hidden;
 }
 
-/* ── HEADER — Two-bar LCARS (matches reference site) ──────────────── */
-
 .lcars-header {
   display: flex;
   flex-direction: column;
   flex-shrink: 0;
   gap: 8px;
-  /* standard LCARS black gap between header bars */
 }
 
-/* ════════════════════ TOP BAR ════════════════════ */
 .top-bar {
   display: flex;
   align-items: stretch;
   height: 80px;
   background-color: var(--bluey);
-  /* #8899ff — periwinkle */
   border-radius: var(--radius-top);
 }
 
-/*
-  Left logo cap — identical to reference site:
-  same background as bar, large bottom-left border-radius,
-  right border separates it from the banner area.
-*/
 .top-bar-logo {
   width: var(--lfw);
-  /* matches sidebar width */
   flex-shrink: 0;
   display: flex;
   flex-direction: column;
@@ -112,7 +91,6 @@ body {
   justify-content: center;
   padding-right: 12px;
   border-right: 8px solid #000;
-  /* The LCARS signature: large rounded bottom-left corner */
   border-radius: var(--radius-top);
   background-color: transparent;
 }
@@ -134,7 +112,6 @@ body {
   text-transform: uppercase;
 }
 
-/* Centre banner = input field + ADD button */
 .top-bar-banner {
   flex: 1;
   display: flex;
@@ -193,22 +170,14 @@ body {
   filter: brightness(82%);
 }
 
-
-
-
-
-
-/* ════════════════════ STATUS BAR ════════════════════ */
 .status-bar {
   display: flex;
   align-items: stretch;
   height: 60px;
   background-color: var(--red);
-  /* #cc4444 — LCARS red */
   border-radius: var(--radius-bottom);
 }
 
-/*  Left cap — mirrors top-bar-logo structure, acts as sidebar top cap */
 .status-bar-logo {
   width: var(--lfw);
   flex-shrink: 0;
@@ -219,7 +188,6 @@ body {
   padding-right: 12px;
   border-right: 8px solid #000;
   background-color: transparent;
-  /* Rounded top-left corner to act as top cap of sidebar */
   border-radius: var(--radius-bottom);
 }
 
@@ -239,7 +207,6 @@ body {
   text-transform: uppercase;
 }
 
-/* Status banner text & container */
 .status-bar-banner {
   flex: 1;
   display: flex;
@@ -253,42 +220,33 @@ body {
   text-transform: uppercase;
 }
 
-
-
-/* CSS variable for the elbow corner radius */
 :root {
   --lcars-elbow-r: 40px;
-  /* tweak to taste */
 }
 
 .separator {
   color: var(--orange);
 }
 
-/* ── MAIN LAYOUT ───────────────────────────────────────────────────── */
 .lcars-main {
   display: flex;
   flex: 1;
   gap: 0;
   padding: 0 16px 0 0;
-  /* Left sidebar sits flush with left screen edge */
   margin-top: 8px;
   height: calc(100vh - 156px);
   min-height: 0;
 }
 
-/* ── LEFT SIDEBAR ──────────────────────────────────────────────────── */
 .left-sidebar {
   width: var(--lfw);
   flex-shrink: 0;
   display: flex;
   flex-direction: column;
   gap: 0;
-  /* Continuous, flush blocks */
   height: 100%;
 }
 
-/* Base style for all sidebar blocks (buttons and stat displays) */
 .sidebar-block {
   width: 100%;
   flex: 1;
@@ -309,7 +267,6 @@ body {
   transition: filter .15s, background-color .15s;
 }
 
-/* Label text (top right) */
 .sb-block-label {
   font-size: .75rem;
   font-weight: 700;
@@ -320,7 +277,6 @@ body {
   margin-bottom: 4px;
 }
 
-/* Value text (bottom right) */
 .sb-block-value {
   font-size: 1.35rem;
   font-weight: 700;
@@ -330,18 +286,15 @@ body {
   color: #000;
 }
 
-/* Button hover state */
 button.sidebar-block:hover {
   filter: brightness(115%);
   cursor: pointer;
 }
 
-/* Button active push state */
 button.sidebar-block:active {
   filter: brightness(85%);
 }
 
-/* Active filter state — turns white/cream */
 button.sidebar-block.filter-active-state {
   background-color: var(--space-white) !important;
   color: #000 !important;
@@ -355,7 +308,6 @@ button.sidebar-block.filter-active-state .sb-block-value {
   color: #000 !important;
 }
 
-/* Colors matching Netlify styles */
 .sb-bluey {
   background-color: var(--bluey);
 }
@@ -388,24 +340,20 @@ button.sidebar-block.filter-active-state .sb-block-value {
   background-color: var(--ice);
 }
 
-/* Bottom-most block gets bottom-left rounded corner (acts as cap) */
 .sidebar-block.bottom-cap {
   border-bottom: none;
 }
 
-/* ── RIGHT CONTENT ─────────────────────────────────────────────────── */
 .right-content {
   flex: 1;
   display: flex;
   flex-direction: column;
   gap: 0;
   padding-left: 10px;
-  /* Space between sidebar right border and main content */
   min-width: 0;
   height: 100%;
 }
 
-/* Task Section */
 .task-section {
   flex: 1;
   padding-top: 10px;
@@ -414,7 +362,6 @@ button.sidebar-block.filter-active-state .sb-block-value {
   height: 100%;
 }
 
-/* ── TASK ITEM ─────────────────────────────────────────────────────── */
 .task-item {
   display: flex;
   align-items: center;
@@ -462,7 +409,6 @@ button.sidebar-block.filter-active-state .sb-block-value {
   }
 }
 
-/* Checkbox / complete toggle */
 .task-check {
   width: 48px;
   height: 48px;
@@ -509,7 +455,6 @@ button.sidebar-block.filter-active-state .sb-block-value {
   display: block;
 }
 
-/* Task text */
 .task-text {
   flex: 1;
   padding: 0 12px;
@@ -528,7 +473,6 @@ button.sidebar-block.filter-active-state .sb-block-value {
   color: #bfa3ff;
 }
 
-/* Task timestamp */
 .task-timestamp {
   font-size: .85rem;
   font-weight: 700;
@@ -539,7 +483,6 @@ button.sidebar-block.filter-active-state .sb-block-value {
   flex-shrink: 0;
 }
 
-/* Delete button */
 .task-delete {
   width: 44px;
   height: 48px;
@@ -568,13 +511,11 @@ button.sidebar-block.filter-active-state .sb-block-value {
   transform: scale(.96);
 }
 
-/* Delete icon (X) */
 .delete-x {
   font-size: 1rem;
   line-height: 1;
 }
 
-/* ── EMPTY STATE ───────────────────────────────────────────────────── */
 .empty-state {
   display: none;
   flex-direction: column;
@@ -624,11 +565,6 @@ button.sidebar-block.filter-active-state .sb-block-value {
   opacity: .85;
 }
 
-
-
-
-
-/* ── SCROLLBAR ─────────────────────────────────────────────────────── */
 .task-section::-webkit-scrollbar {
   width: 6px;
 }
@@ -641,8 +577,6 @@ button.sidebar-block.filter-active-state .sb-block-value {
   background: var(--moonlit-violet);
   border-radius: 3px;
 }
-
-
 
 @media (max-width: 480px) {
   :root {
@@ -752,8 +686,6 @@ button.sidebar-block.filter-active-state .sb-block-value {
     padding: 0 8px;
     font-size: .72rem;
   }
-
-
 
   .lcars-header {
     gap: 4px;
